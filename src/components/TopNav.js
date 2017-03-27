@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { logout } from '../helpers/auth'
 import { isDialogAvailable } from '../helpers/polyfill'
 import logo from '../logo.png';
-import { IconButton, Menu, MenuItem, Grid, Cell } from 'react-mdl'
+import { IconButton, Menu, MenuItem } from 'react-mdl'
 import About from './About'
+import './TopNav.css'
 
 export default class TopNav extends Component {
 
@@ -22,11 +23,13 @@ export default class TopNav extends Component {
       return null;
     }
     return (
-      <nav className="top-nav" style={{width:'100%'}}>
-        <Grid className="demo-grid-1">
-          <Cell col={5}><Link to="/" className="navbar-brand"><img width="40px" src={logo} className="logo" alt="logo" /> <span className="logo-text">Digital River Table Tennis</span></Link></Cell>
-          <Cell col={4}></Cell>
-          <Cell col={3}>
+      <nav className="top-nav">
+        <div style={{'width': '60%'}}>
+          <Link to="/" className="navbar-brand"><img width="40px" src={logo} className="logo" alt="logo" /> 
+          <span className="logo-text hide-on-phone">Digital River Table Tennis</span>
+          </Link>
+        </div>
+        <div style={{'width': '40%', 'textAlign':'right'}}>
             <div className="menu-dots" style={{position: 'relative'}}>
                 <IconButton name="more_vert" id="demo-menu-lower-right" />
                 <Menu target="demo-menu-lower-right" align="right">
@@ -44,8 +47,7 @@ export default class TopNav extends Component {
             {isDialogAvailable() &&
               <About openDialog={this.state.openDialog} handleCloseDialog={this.handleCloseDialog} />
             }
-          </Cell>
-        </Grid>
+        </div>
       </nav>
     )
   }
