@@ -98,7 +98,7 @@ export default class Home extends Component {
 	      <div className="page">
 	        <Grid className="demo-grid-1">
 	          <Cell col={9}>
-	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} clickHandler={this.selectPlayers} style={{'width':'100%', 'fontSize':'2em'}} />
+	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} clickHandler={this.selectPlayers} style={{'width':'100%'}} />
 	            {this.state.matchMode &&
 	            	<MatchForm player1={this.state.player1} player2={this.state.player2} handleSubmit={this.matchResult}/>
       			}	          	
