@@ -17,6 +17,7 @@ export default class Home extends Component {
 	    matchMode: false,
 	    isLoading: true,
 	    showWelcome: false,
+	    loggedInAs:'',
 	    players: []
 	}
 	componentDidMount () {
@@ -26,6 +27,8 @@ export default class Home extends Component {
 			showWelcome = true
 		}
 
+		var loggedInAs = localStorage.getItem('loggedInAs')
+
 		players.on('value', snapshot => {  
 			var playersListArray = [];
 		  	const playersList = snapshot.val();
@@ -33,7 +36,7 @@ export default class Home extends Component {
 			  	playersListArray.push(playersList[key]);
 			});
 			playersListArray = orderBy(playersListArray, 'points', 'desc');
-		  	this.setState({players:playersListArray, isLoading: false, matchMode: false, player1:'', player2:'',numSelected:0, showWelcome:showWelcome})
+		  	this.setState({players:playersListArray, isLoading: false, matchMode: false, player1:'', player2:'',numSelected:0, showWelcome:showWelcome, loggedInAs:loggedInAs})
 		});
 	}
 	selectPlayers = (player) => {
@@ -94,24 +97,27 @@ export default class Home extends Component {
 	    });
   	}
 	render () {
+		const {player1, player2, numSelected, loggedInAs} = this.state;
+		var buttons = ''
+		if (numSelected === 2 && (player1.uid === loggedInAs || player2.uid === loggedInAs)) {
+			buttons = <div>
+						<Button style={{'marginBottom':'2em'}} raised accent ripple onClick={this.addMatch}><Icon name="add" /> New Match</Button>
+						<Link to={'/historical/' + player1.uid + '/' + player2.uid} className="navbar-brand">
+							<Button raised accent ripple>Head 2 Head</Button>
+						</Link>
+					</div>
+		}
 	    return (
 	      <div className="page">
 	        <Grid className="demo-grid-1">
 	          <Cell col={9}>
 	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} clickHandler={this.selectPlayers} style={{'width':'100%'}} />
 	            {this.state.matchMode &&
-	            	<MatchForm player1={this.state.player1} player2={this.state.player2} handleSubmit={this.matchResult}/>
+	            	<MatchForm player1={player1} player2={player2} handleSubmit={this.matchResult}/>
       			}	          	
 	          </Cell>
 	          <Cell col={3}>
-	            {this.state.numSelected === 2 &&
-	            	<div>
-					<Button style={{'marginBottom':'2em'}} raised accent ripple onClick={this.addMatch}><Icon name="add" /> New Match</Button>
-					<Link to={'/historical/' + this.state.player1.uid + '/' + this.state.player2.uid} className="navbar-brand">
-						<Button raised accent ripple>Head 2 Head</Button>
-					</Link>
-					</div>
-      			}
+	            {buttons}
 	          </Cell>
 	        </Grid>
 	        {isDialogAvailable() &&

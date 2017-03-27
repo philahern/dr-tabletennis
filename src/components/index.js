@@ -43,6 +43,7 @@ export default class App extends Component {
 
       if (user) {
         getUserData(user.uid).then((snap) => {
+          localStorage.setItem('loggedInAs', snap.val().uid);
           this.setState({
             authed: true,
             loading: false,
