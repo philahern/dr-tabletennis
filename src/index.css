@@ -1,0 +1,151 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: rgb(141, 165, 112);
+  height:100%;
+}
+#root, .content {
+	height:calc(100% - 70px);
+}
+[data-reactroot] {
+	height: calc(100% - 70px) !important; 
+}
+.top-nav {
+	height:70px;
+	background-color: #58792f;
+	box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);
+	position:fixed;
+	z-index: 2;
+}
+.logo {
+	margin-right: 20px;
+}
+.logo-text {
+	font-size: 1.5em;
+	color: #fff;
+}
+.menu-dots {
+	text-align: right;
+	color:#fff;
+}
+.arrows {
+	user-select: none;
+	cursor: pointer;
+}
+.avatar {
+	user-select: none;
+	background-color: #eee;
+	margin:0 15px;
+	padding:5px;
+	border-radius: 45px;
+}
+.content {
+	width:1000px;
+	margin:auto;
+}
+.authed {
+	padding-top: 7em;
+}
+.page {
+/*	background-color: #eee;*/
+	padding:2em;
+}
+
+.selected, .selected:hover {
+	background-color: rgb(255, 186, 210) !important;
+}
+
+.league-table tr {
+	cursor: pointer;
+}
+
+.fab-button-text {
+	font-size: 1.5em;
+	color:#fff;
+	margin-left: 1em;
+}
+#login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:100%;
+}
+
+.login {
+  width:300px;
+  height:380px;
+  border-radius: 15px;
+  background-color: #eee;
+  padding: 40px 30px 0 30px;
+  text-align: center;
+  box-shadow: 5px 5px 5px #666;
+}
+.login-header {
+ width:300px;
+ margin-left: -30px; /* To counter the padding on .login */
+ padding-left: 30px;
+ color:#ED2553; 
+ font-size:2em;
+ font-weight: bold;
+ border-left: 5px solid #ED2553;
+ text-align: left;
+}
+
+.login button[type=submit] {
+  width:180px;
+  height:55px;
+  font-size:1.6em;
+}
+
+.mdl-radio.is-upgraded {
+    margin-left: 0.5em;
+}
+.previous {
+	display:block;
+	font-size:0.5em;
+}
+.positive {
+	color: green;
+}
+.negative {
+	color: red;
+}
+.navbar-brand {
+	text-decoration: none;
+}
+.big-score {
+	margin:10px 0;
+	font-size:85px;
+	text-align: center;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px !important;
+  margin: 100px auto;
+  background-color: #333;
+
+  border-radius: 100%;  
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
