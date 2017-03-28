@@ -5,8 +5,7 @@ import LeagueTable from './LeagueTable'
 import MatchForm from './MatchForm'
 import Welcome from '../Welcome'
 import { players } from '../../config/constants'
-import { orderBy } from 'lodash';
-import { updatePoints } from '../../helpers/scoring'
+import { updatePoints, getWinStreaker, sortedArray } from '../../helpers/scoring'
 import { isDialogAvailable } from '../../helpers/polyfill'
  
 export default class Home extends Component {
@@ -30,13 +29,9 @@ export default class Home extends Component {
 		var loggedInAs = localStorage.getItem('loggedInAs')
 
 		players.on('value', snapshot => {  
-			var playersListArray = [];
-		  	const playersList = snapshot.val();
-		  	Object.keys(playersList).forEach(function (key, index) {
-			  	playersListArray.push(playersList[key]);
-			});
-			playersListArray = orderBy(playersListArray, 'points', 'desc');
-		  	this.setState({players:playersListArray, isLoading: false, matchMode: false, player1:'', player2:'',numSelected:0, showWelcome:showWelcome, loggedInAs:loggedInAs})
+			var playersListArray = sortedArray(snapshot.val(), 'points')
+			const winStreaker = getWinStreaker(playersListArray)
+		  	this.setState({players:playersListArray, isLoading: false, matchMode: false, player1:'', player2:'',numSelected:0, showWelcome:showWelcome, loggedInAs:loggedInAs, winStreaker: winStreaker})
 		});
 	}
 	selectPlayers = (player) => {
@@ -111,7 +106,7 @@ export default class Home extends Component {
 	      <div className="page">
 	        <Grid className="demo-grid-1">
 	          <Cell col={9}>
-	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} clickHandler={this.selectPlayers} style={{'width':'100%'}} />
+	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} winStreaker={this.state.winStreaker} clickHandler={this.selectPlayers} style={{'width':'100%'}} />
 	            {this.state.matchMode &&
 	            	<MatchForm player1={player1} player2={player2} handleSubmit={this.matchResult}/>
       			}	          	
