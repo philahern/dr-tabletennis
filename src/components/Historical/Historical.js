@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Grid, Cell, Spinner, Snackbar } from 'react-mdl'
-import { getMatches, getPlayerData, matchesArray, getWinner } from '../../helpers/scoring'
+import { getMatches, getPlayerData, sortedArray, getWinner } from '../../helpers/scoring'
 import Scorecard from './Scorecard'
 import WinnerRow from './WinnerRow'
 
@@ -44,7 +44,7 @@ export default class Historical extends Component {
   	}
 	render () {
 		var {player1, player2, matches} = this.state;
-		var matchesList = matchesArray (matches)
+		var matchesList = sortedArray (matches, 'date')
 		player1.count = 0
 		player2.count = 0
 

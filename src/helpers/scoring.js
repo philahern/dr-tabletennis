@@ -91,18 +91,49 @@ export function getPlayerData (player) {
     return ref.child('users/' + player).once('value');
 }
 
-export function matchesArray (matches) {
-    var matchesArray = [];
-    if (matches !== null) {
-      Object.keys(matches).forEach(function (key, index) {
-          matchesArray.push(matches[key]);
+export function sortedArray (data, sortBy) {
+    var newArray = [];
+    if (data !== null) {
+      Object.keys(data).forEach(function (key, index) {
+          newArray.push(data[key]);
       });
     }
 
-    return orderBy(matchesArray, 'date', 'desc');
+    return orderBy(newArray, sortBy, 'desc');
 }
 export function getWinner (player1, player2, match) {
     if (player1.uid === match[match.winner]) return player1
     if (player2.uid === match[match.winner]) return player2     
 }
 
+export function getWinStreaker (players) {
+  var bestWinStreak = 0
+  var bestWinStreaker = ''
+
+  players.forEach((player) => {
+
+    var matches = []
+    var stopChecking = false
+    var winStreak = 0
+
+    if (player.matches !== null) {
+      Object.keys(player.matches).forEach(function (key, index) {
+          matches.push(player.matches[key])
+      });
+    }
+    matches  = orderBy(matches, 'date', 'desc')
+    matches.forEach((match) => {
+      if (match[match.winner] === player.uid && stopChecking === false) {
+        winStreak++
+      } else {
+        stopChecking = true
+      }
+    })
+    if (winStreak > bestWinStreak) {
+      bestWinStreak = winStreak
+      bestWinStreaker = player.uid
+    }
+  }); 
+  console.log ('The person with the longest winning streak is ' + bestWinStreaker + ' with a streak of ' + bestWinStreak);  
+  return({'player':bestWinStreaker, 'streak': bestWinStreak})
+}

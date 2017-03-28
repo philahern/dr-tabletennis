@@ -8,7 +8,7 @@ export default class LeagueTableTable extends Component {
 
   	const players = this.props.players.map((player, idx) => {
       	return (
-          <LeagueTableRow player={player} clickHandler={this.props.clickHandler} key={player.uid} position={idx+1} />
+          <LeagueTableRow player={player} winStreaker={this.props.winStreaker} clickHandler={this.props.clickHandler} key={player.uid} position={idx+1} />
       	)
     });
 
