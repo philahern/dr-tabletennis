@@ -9,6 +9,7 @@ import Historical from './Historical/Historical'
 import { firebaseAuth } from '../config/constants'
 import classNames from 'classnames'
 import { getUserData } from '../helpers/auth'
+import { notifyRequestPermission, notifyOnTokenRefresh, notifyGetToken } from '../helpers/notifications'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
   return (
@@ -39,11 +40,17 @@ export default class App extends Component {
     user:{}
   }
   componentDidMount () {
-    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
 
+    notifyRequestPermission()
+
+    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         getUserData(user.uid).then((snap) => {
           localStorage.setItem('loggedInAs', snap.val().uid);
+
+          notifyOnTokenRefresh();
+          notifyGetToken()
+          
           this.setState({
             authed: true,
             loading: false,
@@ -57,6 +64,7 @@ export default class App extends Component {
         })
       }
     })
+
   }
   componentWillUnmount () {
     this.removeListener()
