@@ -85,6 +85,15 @@ export default class Home extends Component {
 	        	console.log(error)
 	        })
   	}
+  	cancelMatchAdd = () => {
+  		var newPlayers = this.state.players.slice()
+  		newPlayers.map((player) => {
+			player.hide = null
+			player.selected = false
+  			return player
+		});
+  		this.setState({isLoading: false, matchMode: false, player1:'', player2:'',numSelected:0, players: newPlayers})
+  	}
   	handleCloseWelcome = () => {
   		localStorage.setItem('showWelcome', 'false');
 	    this.setState({
@@ -108,7 +117,7 @@ export default class Home extends Component {
 	          <Cell col={9}>
 	          	<LeagueTable matchMode={this.state.matchMode} isLoading={this.state.isLoading} players={this.state.players} winStreaker={this.state.winStreaker} clickHandler={this.selectPlayers} style={{'width':'100%'}} />
 	            {this.state.matchMode &&
-	            	<MatchForm player1={player1} player2={player2} handleSubmit={this.matchResult}/>
+	            	<MatchForm player1={player1} player2={player2} handleSubmit={this.matchResult} handleCancel={this.cancelMatchAdd}/>
       			}	          	
 	          </Cell>
 	          <Cell col={3}>

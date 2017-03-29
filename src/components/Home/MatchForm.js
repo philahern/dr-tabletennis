@@ -45,13 +45,14 @@ export default class MatchForm extends Component {
 					    <Radio value="player1" ripple>{this.props.player1.name} </Radio>
 					    <Radio value="player2" ripple>{this.props.player2.name}</Radio>
 					</RadioGroup>
-					<h3>By how much?</h3>
-					<RadioGroup container="div" childContainer="div" name="margin" value={this.state.margin} onChange={this.handleChange}>
-					    <Radio value="close" ripple>Close one [within 5 points] </Radio>
-					    <Radio value="good-win" ripple>A good win [5 points or more]</Radio>
-					    <Radio value="hammering" ripple>A hammering [more than 10 points]</Radio>
+					<h3>Losers score?</h3>
+					<RadioGroup name="margin" value={this.state.margin} onChange={this.handleChange}>
+						<Radio value="hammering" ripple>less than 11</Radio>
+					    <Radio value="good-win" ripple>11-15</Radio>
+					    <Radio value="close" ripple>16+</Radio>
 					</RadioGroup>
-					<Button type="submit" raised accent ripple>Add Result</Button>
+					<Button style={{'margin':'25px'}} type="submit" raised accent ripple>Add Result</Button> 
+					<div><Button onClick={this.props.handleCancel} type="button" ripple>Cancel</Button></div>
 				</td>
 				</tr>
 				</tbody>
