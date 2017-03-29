@@ -59,6 +59,7 @@ export function updatePoints (player1, player2, result) {
 
     const newMatchKey = ref.child('matches').push().key;
     const matchupKey = [player1.uid, player2.uid].sort().join('-')
+    const addedBy = localStorage.getItem('loggedInAs');
     const match = {
         'date': (new Date()).toJSON(),
         'player1': player1.uid,
@@ -67,6 +68,7 @@ export function updatePoints (player1, player2, result) {
         'player2Name': player2.name,
         'winner': result.winner,
         'margin': result.margin,
+        'addedBy': addedBy,
         'pointsExchanged': result.pointsExchange 
     }
     var updates = {};
@@ -107,6 +109,7 @@ export function getWinner (player1, player2, match) {
 }
 
 export function getWinStreaker (players) {
+
   var bestWinStreak = 0
   var bestWinStreaker = ''
 
@@ -116,7 +119,7 @@ export function getWinStreaker (players) {
     var stopChecking = false
     var winStreak = 0
 
-    if (player.matches !== null) {
+    if (typeof(player.matches) === 'object') {
       Object.keys(player.matches).forEach(function (key, index) {
           matches.push(player.matches[key])
       });
@@ -134,6 +137,6 @@ export function getWinStreaker (players) {
       bestWinStreaker = player.uid
     }
   }); 
-  console.log ('The person with the longest winning streak is ' + bestWinStreaker + ' with a streak of ' + bestWinStreak);  
+
   return({'player':bestWinStreaker, 'streak': bestWinStreak})
 }
