@@ -5,6 +5,7 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home/Home'
 import About from './About'
+import Profile from './Profile/Profile'
 import Historical from './Historical/Historical'
 import { firebaseAuth } from '../config/constants'
 import classNames from 'classnames'
@@ -47,6 +48,8 @@ export default class App extends Component {
       if (user) {
         getUserData(user.uid).then((snap) => {
           localStorage.setItem('loggedInAs', snap.val().uid);
+          localStorage.setItem('loggedInAsName', snap.val().name);
+          localStorage.setItem('loggedInAsCustomAvatar', snap.val().customAvatar);
 
           notifyOnTokenRefresh();
           notifyGetToken()
@@ -86,6 +89,7 @@ export default class App extends Component {
                 <PublicRoute authed={this.state.authed} path='/login' component={Login} />
                 <PublicRoute authed={this.state.authed} path='/register' component={Register} />
                 <PrivateRoute authed={this.state.authed} path='/historical/:player1/:player2' component={Historical} />
+                <PrivateRoute authed={this.state.authed} path='/profile' component={Profile} />
                 <Route render={() => <h3>Nothing to see here for now.</h3>} />
               </Switch>
 

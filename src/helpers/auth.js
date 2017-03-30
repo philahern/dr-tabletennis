@@ -24,6 +24,14 @@ export function saveUser (user) {
     .then(() => user)
 }
 
+export function updateUser (user) {
+  var updates = {};
+  updates['/users/' + user.uid + '/name'] = user.name;
+  updates['/users/' + user.uid + '/customAvatar'] = user.avatar;
+
+  return ref.update(updates)
+}
+
 export function getUserData (uid) {
     return ref.child('users/' + uid).once('value');
 }

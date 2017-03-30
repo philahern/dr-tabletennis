@@ -6,6 +6,11 @@ export default class ChooseAvatar extends Component {
 		selectedImage: -1,
 		images: ['Ant','Aquarium','Badger','Bat-Face','Bear','Beaver','Bee','Bird','Bug','Bull','Bumblebee','Butterfly','Cat-Footprint','Cat','Caterpillar','Chicken','Clown-Fish','Corgi','Cow','Crab','Deer','Dinosaur','Dog-Park','Dog','Dolphin','Dragonfly','Duck','Elephant','Falcon','Fish-Food','Fish','Fly','Frog','Giraffe','Gorilla','Grasshopper','Hornet-Hive','Hornet','Horse','Hummingbird','Insect','Kangaroo','Kiwi','Ladybird','Leopard','Lion','Llama','Mite','Mosquito','Octopus','Panda','Pig-With-Lipstick','Pig','Prawn','Puffin-Bird','Rabbit','Rhinoceros','Seahorse','Shark','Sheep','Snail','Spider','Starfish','Stork','Tentacles','Turtle','Unicorn','Wasp','Whale','Wolf']
 	}
+	componentWillMount () {
+		if (this.props.selected) {
+			this.setState({selectedImage: this.state.images.indexOf(this.props.selected)})
+		}
+	}
 	rotateImage = (e) => {
 		var newimage = 0;
 	  	if (e.target.id ==='up') {
