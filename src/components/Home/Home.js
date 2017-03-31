@@ -45,7 +45,7 @@ export default class Home extends Component {
 		if (this.state.numSelected === 0 ) {
 			this.setState({player1: player, numSelected: 1, players:newPlayers})
 		}
-		if (this.state.numSelected === 1) {
+		if (this.state.numSelected === 1 && player.uid !== this.state.player1.uid) {
 			this.setState({player2: player, numSelected: 2, players:newPlayers})
 		}
 		if (this.state.numSelected === 2) {
