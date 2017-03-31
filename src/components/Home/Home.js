@@ -7,6 +7,7 @@ import Welcome from '../Welcome'
 import { players } from '../../config/constants'
 import { updatePoints, getWinStreaker, sortedArray } from '../../helpers/scoring'
 import { isDialogAvailable } from '../../helpers/polyfill'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
  
 export default class Home extends Component {
 	state = {
@@ -19,7 +20,7 @@ export default class Home extends Component {
 	    loggedInAs:'',
 	    players: []
 	}
-	componentDidMount () {
+	componentWillMount () {
 		var showWelcome = false
 
 		if (localStorage.getItem('showWelcome') === null) {
@@ -104,7 +105,7 @@ export default class Home extends Component {
 		const {player1, player2, numSelected, loggedInAs} = this.state;
 		var buttons = ''
 		if (numSelected === 2 && (player1.uid === loggedInAs || player2.uid === loggedInAs)) {
-			buttons = <div>
+			buttons = <div className="buttons">
 						<Button style={{'marginBottom':'2em'}} raised accent ripple onClick={this.addMatch}><Icon name="add" /> New Match</Button>
 						<Link to={'/historical/' + player1.uid + '/' + player2.uid} className="navbar-brand">
 							<Button raised accent ripple>Head 2 Head</Button>
@@ -121,7 +122,13 @@ export default class Home extends Component {
       			}	          	
 	          </Cell>
 	          <Cell col={3}>
-	            {buttons}
+	              <ReactCSSTransitionGroup
+			          transitionName="example"
+			          transitionEnterTimeout={500}
+			          transitionLeaveTimeout={300}>
+	            	{buttons}
+			      </ReactCSSTransitionGroup>
+
 	          </Cell>
 	        </Grid>
 	        {isDialogAvailable() &&

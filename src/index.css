@@ -116,6 +116,24 @@ body {
   animation: sk-scaleout 1.0s infinite ease-in-out;
 }
 
+.example-enter {
+  opacity: 0.01;
+}
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.example-leave {
+  opacity: 1;
+}
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
 @-webkit-keyframes sk-scaleout {
   0% { -webkit-transform: scale(0) }
   100% {
@@ -138,6 +156,14 @@ body {
 @media only screen and (max-width : 580px) {
   .hide-on-phone {
     display: none !important;
+  }
+}
+@media only screen and (min-width : 840px) {
+  .buttons {
+      width:250px;
+      position: fixed;
+      top: 150px;
+      z-index:5;
   }
 }
 
