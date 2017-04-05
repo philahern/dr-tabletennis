@@ -16,7 +16,7 @@ export function notifyOnTokenRefresh () {
 export function notifyGetToken () {
   return messaging.getToken()
           .then(function(token) {
-            console.log('Token received.', token)
+            //console.log('Token received.', token)
             if (token !== null) {
               sendTokenToServer(token)
             }
@@ -28,7 +28,7 @@ export function notifyGetToken () {
 
 function sendTokenToServer(token) {
   const player = window.localStorage.getItem('loggedInAs')
-  console.log('Token sent to server.');
+  //console.log('Token sent to server.');
   return db.ref('/users/' + player + '/notificationTokens/' + token).set(true);
    
 }
