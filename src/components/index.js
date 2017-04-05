@@ -42,7 +42,9 @@ export default class App extends Component {
   }
   componentDidMount () {
 
-    notifyRequestPermission()
+    if (window.Notification) {
+      notifyRequestPermission()
+    }
 
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
